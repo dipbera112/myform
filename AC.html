@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <title>💖 তোমার আমার প্রশ্নমালা 💖</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background: linear-gradient(145deg, #ffb6c1 0%, #ff9eb5 100%);
+      font-family: 'Segoe UI', 'Hind Siliguri', 'Noto Sans Bengali', 'Helvetica Neue', system-ui, -apple-system, sans-serif;
+      padding: 1.25rem;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* প্রধান কন্টেইনার */
+    .romance-card {
+      max-width: 600px;
+      width: 100%;
+      margin: 0 auto;
+      background: #fff0f5;
+      border-radius: 3rem;
+      box-shadow: 0 20px 40px rgba(255, 80, 120, 0.3), 0 0 0 1px rgba(255, 200, 210, 0.8);
+      overflow: hidden;
+      backdrop-filter: blur(2px);
+      transition: all 0.2s ease;
+    }
+
+    /* হেডার - গোলাপি মায়া */
+    .header {
+      background: #ff85a1;
+      padding: 1.2rem 1.5rem;
+      text-align: center;
+      border-bottom: 3px solid #ffdfe6;
+    }
+    .header h1 {
+      font-size: 1.9rem;
+      font-weight: 800;
+      color: #fff0f5;
+      text-shadow: 2px 2px 0 #c45c7a;
+      letter-spacing: -0.5px;
+      word-break: keep-all;
+    }
+    .header p {
+      color: #ffe4ed;
+      font-size: 0.85rem;
+      margin-top: 6px;
+      font-weight: 500;
+    }
+
+    /* লোকেশন বার */
+    .location-bar {
+      background: #ffd9e4;
+      padding: 0.7rem 1.2rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid #ffb7c7;
+    }
+    .loc-status {
+      background: #ffffffcc;
+      padding: 0.3rem 0.9rem;
+      border-radius: 60px;
+      font-size: 0.7rem;
+      font-weight: bold;
+      color: #b13e5e;
+    }
+    .loc-btn {
+      background: #ff4d6d;
+      border: none;
+      padding: 0.45rem 1.2rem;
+      border-radius: 60px;
+      color: white;
+      font-weight: bold;
+      font-size: 0.75rem;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      transition: 0.2s;
+    }
+    .loc-btn:active { transform: scale(0.96); background: #db3a58; }
+    .map-link {
+      background: #ffe1e8;
+      border-radius: 60px;
+      padding: 0.3rem 0.8rem;
+      font-size: 0.7rem;
+      text-decoration: none;
+      color: #b34162;
+      font-weight: bold;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    /* প্রশ্ন এলাকা */
+    .quiz-area {
+      padding: 2rem 1.5rem 1.5rem;
+      background: #fffafc;
+    }
+    .progress-badge {
+      background: #ffc0d0;
+      display: inline-block;
+      padding: 0.2rem 1rem;
+      border-radius: 50px;
+      font-size: 0.7rem;
+      font-weight: bold;
+      color: #9e3e58;
+      margin-bottom: 1.2rem;
+    }
+    .question {
+      font-size: 1.65rem;
+      font-weight: 700;
+      color: #932b4b;
+      line-height: 1.4;
+      margin-bottom: 1.5rem;
+      border-left: 6px solid #ff7b9c;
+      padding-left: 1rem;
+      word-break: break-word;
+    }
+    .answer-box {
+      margin: 0.8rem 0 1.2rem;
+    }
+    .answer-box label {
+      display: block;
+      font-weight: 600;
+      color: #b44b6b;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+    }
+    textarea {
+      width: 100%;
+      padding: 0.9rem;
+      border-radius: 28px;
+      border: 1.5px solid #ffbfcf;
+      background: white;
+      font-family: inherit;
+      font-size: 1rem;
+      resize: vertical;
+      transition: 0.2s;
+    }
+    textarea:focus {
+      border-color: #ff6f91;
+      outline: none;
+      box-shadow: 0 0 0 3px #ff8aab60;
+    }
+
+    /* বাটন গ্রুপ */
+    .btn-group {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      margin: 1.8rem 0 1rem;
+    }
+    .btn {
+      flex: 1;
+      background: #ff7b9c;
+      border: none;
+      padding: 0.8rem 0;
+      border-radius: 60px;
+      font-weight: bold;
+      font-size: 1rem;
+      color: white;
+      cursor: pointer;
+      text-align: center;
+      transition: 0.2s;
+      font-family: inherit;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    }
+    .btn-outline {
+      background: #ffe4ec;
+      color: #bc4e6e;
+      border: 1px solid #ffb0c0;
+    }
+    .btn:active { transform: scale(0.97); }
+    .history-btn {
+      background: #c95c7c;
+      margin-top: 0.2rem;
+    }
+
+    /* হিস্টরি মোডাল / সেকশন */
+    .history-section {
+      background: #ffeef3;
+      border-top: 2px dashed #ffb6cb;
+      margin-top: 0.5rem;
+      padding: 1rem 1.2rem 1.3rem;
+      display: none;
+      border-radius: 2rem 2rem 2rem 2rem;
+    }
+    .history-section.show {
+      display: block;
+    }
+    .history-title {
+      font-weight: bold;
+      color: #b13e5e;
+      font-size: 1.2rem;
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    .close-history {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #ff6f91;
+    }
+    .history-list {
+      max-height: 380px;
+      overflow-y: auto;
+      padding-right: 5px;
+    }
+    .history-item {
+      background: white;
+      margin-bottom: 0.9rem;
+      padding: 0.8rem;
+      border-radius: 1.5rem;
+      box-shadow: 0 2px 8px #ffcfdb;
+      border-left: 5px solid #ff85a1;
+    }
+    .history-question {
+      font-weight: 700;
+      color: #811e40;
+      font-size: 0.9rem;
+    }
+    .history-answer {
+      margin-top: 6px;
+      color: #2d2f36;
+      background: #fff0f5;
+      padding: 0.5rem;
+      border-radius: 1rem;
+      font-size: 0.85rem;
+      word-break: break-word;
+    }
+    .history-loc {
+      font-size: 0.7rem;
+      margin-top: 8px;
+      background: #ffe1e8;
+      padding: 0.3rem 0.7rem;
+      border-radius: 30px;
+      display: inline-block;
+    }
+    .map-history-link {
+      font-size: 0.7rem;
+      margin-left: 8px;
+      color: #c9355c;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    footer {
+      background: #ffe0e8;
+      text-align: center;
+      font-size: 0.65rem;
+      padding: 0.8rem;
+      color: #a14d67;
+    }
+    @media (max-width: 520px) {
+      .question { font-size: 1.35rem; }
+      .romance-card { border-radius: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="romance-card" id="appRoot">
+  <div class="header">
+    <h1>🌸 শুভ সন্ধ্যা 🌸</h1>
+    <p>💗 আমার জন্য কয়টা প্রশ্নের উত্তর দেবে? 💗</p>
+  </div>
+
+  <!-- লোকেশন বার -->
+  <div class="location-bar">
+    <span class="loc-status" id="locDisplayStatus">📍 অনুমতি নেওয়া হয়নি</span>
+    <button class="loc-btn" id="askLocationBtn">💖 লোকেশন অনুমতি 💖</button>
+  </div>
+  <div style="background:#fff0f5; padding:0 1rem 0.6rem 1rem; font-size:0.7rem; display:flex; justify-content:space-between; flex-wrap:wrap;" id="locationDetailsArea">
+    <span id="coordsText">🌍 অক্ষাংশ/দ্রাঘিমা : —</span>
+    <span id="mapsLinkSpan"></span>
+  </div>
+
+  <!-- মূল প্রশ্ন অংশ -->
+  <div class="quiz-area" id="quizSection">
+    <div class="progress-badge" id="qCounter">প্রশ্ন ১ / ১০</div>
+    <div class="question" id="questionText">লোড হচ্ছে...</div>
+    <div class="answer-box">
+      <label>✎ তোমার উত্তর লিখো (হাতে লেখা ভালোবাসায়)</label>
+      <textarea id="answerInput" rows="2" placeholder="এখানে উত্তর দাও... 💕"></textarea>
+    </div>
+    <div class="btn-group">
+      <button class="btn btn-outline" id="prevBtn">◀ আগের</button>
+      <button class="btn" id="nextBtn">পরবর্তী ▶</button>
+    </div>
+    <button class="btn history-btn" id="showHistoryBtn">📜 হিস্টরি দেখো (সব উত্তর)</button>
+    <div style="font-size:0.7rem; text-align:center; margin-top:10px; color:#e26a8a;">✨ প্রতিটি উত্তর auto সেভ হচ্ছে ✨</div>
+  </div>
+
+  <!-- হিস্টরি প্যানেল (লুকানো) -->
+  <div id="historyPanel" class="history-section">
+    <div class="history-title">
+      <span>💌 তোমার সব প্রশ্ন-উত্তর 💌</span>
+      <button class="close-history" id="closeHistoryBtn">✖</button>
+    </div>
+    <div id="historyListContainer" class="history-list">
+      <!-- dynamically history will appear -->
+    </div>
+    <div style="margin-top: 12px; text-align:center;">
+      <button id="clearHistoryNoteBtn" style="background:none; border:none; font-size:0.7rem; color:#b55a76;">🗑️ শুধু উত্তর মুছবে?</button>
+    </div>
+  </div>
+  <footer>
+    🌹 তুমি আমার সবচেয়ে প্রিয়. কখনো ছেড়ে যেও না. 🌹
+  </footer>
+</div>
+
+<script>
+  // --------------------------------------------------------------
+  // প্রশ্ন লিস্ট (ঠিক যেমন চেয়েছেন - ১০ টি)
+  // --------------------------------------------------------------
+  const QUESTIONS = [
+    { id: "A", text: "💗 A. তোর নাম কি?\n(1. Mimi / 2. Priya / 3. Otter অথবা নিজের নাম)" },
+    { id: "B", text: "🏡 B. তোর বাড়ি কোথায়?\n(1. Bagnan / 2. Otter অথবা জেলা/গ্রাম)" },
+    { id: "C", text: "📚 C. তোর স্কুলের নাম কি?" },
+    { id: "D", text: "📝 D. তোর পুরো নাম৷" },
+    { id: "E", text: "👨‍👩‍👧 E. তোর বাবা ও মায়ের নাম আর কে কে আছে তোর বাড়িতে ও তার নাম!" },
+    { id: "F", text: "🎂 F. তোর জন্মদিন কবে?" },
+    { id: "G", text: "🎨 G. তোর প্রিয় রং কি?" },
+    { id: "H", text: "🍕 H. তোর প্রিয় খাবার কি?" },
+    { id: "I", text: "😤 I. তুই রেগে গেলে কি করবে?" },
+    { id: "J", text: "💌 J. আর কিছু বলতে চাস আমাকে?\n(নিচের নোটটা মনে রেখো: আমি তোকে প্রচুর ভালোবাসি ❤️)" }
+  ];
+
+  let currentIndex = 0;           // 0-based
+  let answers = {};               // key: A,B,C... value: string
+
+  // লোকেশন ডাটা
+  let userLat = null;
+  let userLng = null;
+  let locationGranted = false;
+
+  // DOM elements
+  const questionTextEl = document.getElementById("questionText");
+  const answerInput = document.getElementById("answerInput");
+  const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
+  const qCounter = document.getElementById("qCounter");
+  const showHistoryBtn = document.getElementById("showHistoryBtn");
+  const historyPanel = document.getElementById("historyPanel");
+  const closeHistoryBtn = document.getElementById("closeHistoryBtn");
+  const historyListContainer = document.getElementById("historyListContainer");
+  const askLocationBtn = document.getElementById("askLocationBtn");
+  const coordsTextSpan = document.getElementById("coordsText");
+  const mapsLinkSpan = document.getElementById("mapsLinkSpan");
+  const locDisplayStatus = document.getElementById("locDisplayStatus");
+  const clearHistoryNoteBtn = document.getElementById("clearHistoryNoteBtn");
+
+  // ---------- localStorage functions ----------
+  function loadAnswersFromStorage() {
+    const stored = localStorage.getItem("romantic_answers_survey");
+    if (stored) {
+      try {
+        const parsed = JSON.parse(stored);
+        if (parsed && typeof parsed === "object") answers = parsed;
+      } catch(e) { console.warn(e); }
+    }
+    // load location if any
+    const storedLoc = localStorage.getItem("user_location_love");
+    if (storedLoc) {
+      try {
+        const loc = JSON.parse(storedLoc);
+        if (loc.lat && loc.lng) {
+          userLat = loc.lat;
+          userLng = loc.lng;
+          locationGranted = true;
+          updateLocationUI();
+        }
+      } catch(e) {}
+    }
+  }
+
+  function saveAnswersToStorage() {
+    localStorage.setItem("romantic_answers_survey", JSON.stringify(answers));
+  }
+
+  function saveLocationToStorage(lat, lng) {
+    const locData = { lat, lng, savedAt: new Date().toISOString() };
+    localStorage.setItem("user_location_love", JSON.stringify(locData));
+  }
+
+  // Update location info & google maps clickable link
+  function updateLocationUI() {
+    if (userLat !== null && userLng !== null) {
+      coordsTextSpan.innerHTML = `📍 অক্ষাংশ: ${userLat.toFixed(6)}°, দ্রাঘিমা: ${userLng.toFixed(6)}°`;
+      const mapsUrl = `https://www.google.com/maps?q=${userLat},${userLng}`;
+      mapsLinkSpan.innerHTML = `<a href="${mapsUrl}" target="_blank" class="map-link" rel="noopener">🗺️ গুগল ম্যাপে দেখো</a>`;
+      locDisplayStatus.innerHTML = "✅ লোকেশন সংরক্ষিত 💖";
+    } else {
+      coordsTextSpan.innerHTML = "🌍 লোকেশন নেই (অনুমতি দাও)";
+      mapsLinkSpan.innerHTML = "";
+      locDisplayStatus.innerHTML = "📍 অনুমতি দেওয়া হয়নি";
+    }
+  }
+
+  // লোকেশন রিকোয়েস্ট + extra info
+  function requestLocation() {
+    if (!navigator.geolocation) {
+      alert("তোমার ব্রাউজার লোকেশন সাপোর্ট করে না 💔");
+      return;
+    }
+    locDisplayStatus.innerHTML = "⏳ লোকেশন আনছি... দয়া করে অনুমতি দাও";
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        userLat = position.coords.latitude;
+        userLng = position.coords.longitude;
+        locationGranted = true;
+        saveLocationToStorage(userLat, userLng);
+        updateLocationUI();
+        // ছোট নোটিশ
+        const msgDiv = document.createElement("div");
+        msgDiv.innerText = "❤️ তোমার লোকেশন সেভ হয়েছে! ম্যাপ লিংক দেখো ❤️";
+        msgDiv.style.fontSize = "0.7rem";
+        msgDiv.style.marginTop = "6px";
+        msgDiv.style.color = "#bc4e6e";
+        const parentDiv = document.getElementById("locationDetailsArea");
+        const oldMsg = document.getElementById("tempLocMsg");
+        if(oldMsg) oldMsg.remove();
+        msgDiv.id = "tempLocMsg";
+        parentDiv.appendChild(msgDiv);
+        setTimeout(() => { if(msgDiv) msgDiv.remove(); }, 3000);
+        // extra detail: altitude, accuracy optional store in localstorage but no need, main lat/long enough
+        const extraInfo = {
+          accuracy: position.coords.accuracy,
+          timestamp: new Date(position.timestamp).toLocaleString(),
+        };
+        localStorage.setItem("location_extra_meta", JSON.stringify(extraInfo));
+      },
+      (error) => {
+        console.error(error);
+        let errMsg = "অনুমতি অস্বীকৃত বা লোকেশন বন্ধ।";
+        if (error.code === 1) errMsg = "❌ তুমি লোকেশন অনুমতি দাওনি। ম্যানুয়ালি দিয়ে দাও।";
+        else if (error.code === 2) errMsg = "❌ অবস্থান পাওয়া যায়নি।";
+        else errMsg = "❌ লোকেশন error: " + error.message;
+        locDisplayStatus.innerHTML = errMsg;
+        coordsTextSpan.innerHTML = "🌍 লোকেশন নেই";
+        mapsLinkSpan.innerHTML = "";
+        locationGranted = false;
+        alert("💔 লোকেশন পারমিশন দিলে ম্যাপ লিংক ও ইতিহাসে জায়গা পাবে। দয়া করে অনুমতি দাও।");
+      },
+      { enableHighAccuracy: true, timeout: 10000 }
+    );
+  }
+
+  // রেন্ডার কারেন্ট প্রশ্ন
+  function renderCurrentQuestion() {
+    const q = QUESTIONS[currentIndex];
+    if (!q) return;
+    questionTextEl.innerText = q.text;
+    const savedAns = answers[q.id] || "";
+    answerInput.value = savedAns;
+    qCounter.innerText = `প্রশ্ন ${currentIndex+1} / ${QUESTIONS.length}`;
+  }
+
+  // বর্তমান উত্তর সেভ করে
+  function saveCurrentAnswer() {
+    const q = QUESTIONS[currentIndex];
+    if (!q) return;
+    const val = answerInput.value.trim();
+    if (val !== "") {
+      answers[q.id] = val;
+    } else {
+      if (answers[q.id] !== undefined) delete answers[q.id];
+    }
+    saveAnswersToStorage();
+  }
+
+  // next action
+  function goNext() {
+    saveCurrentAnswer();
+    if (currentIndex + 1 < QUESTIONS.length) {
+      currentIndex++;
+      renderCurrentQuestion();
+    } else {
+      // শেষ প্রশ্ন
+      saveCurrentAnswer();
+      alert("💞 সব প্রশ্নের উত্তর সংরক্ষিত! তুমি চমৎকার। হিস্টরি বাটনে ক্লিক করে দেখো। 💞");
+    }
+  }
+
+  function goPrev() {
+    saveCurrentAnswer();
+    if (currentIndex - 1 >= 0) {
+      currentIndex--;
+      renderCurrentQuestion();
+    } else {
+      alert("এটা প্রথম প্রশ্ন, আগের পাতা নেই 💗");
+    }
+  }
+
+  // হিস্টরি রেন্ডার (সব প্রশ্ন + উত্তর + লোকেশন লিংক)
+  function renderHistory() {
+    if (!historyListContainer) return;
+    let html = "";
+    for (let i = 0; i < QUESTIONS.length; i++) {
+      const q = QUESTIONS[i];
+      const answerText = answers[q.id] || "❌ (উত্তর দেওয়া হয়নি)";
+      html += `
+        <div class="history-item">
+          <div class="history-question">📌 ${q.text.replace(/\n/g, ' ')}</div>
+          <div class="history-answer">💬 উত্তর: ${escapeHtml(answerText)}</div>
+        </div>
+      `;
+    }
+    // লোকেশন সংক্রান্ত তথ্য ইতিহাসের নিচে যুক্ত করা
+    let locationHtml = `<div class="history-item" style="background:#ffecf0;">
+      <div class="history-question">📍 লোকেশন তথ্য</div>`;
+    if (userLat !== null && userLng !== null) {
+      const mapsUrl = `https://www.google.com/maps?q=${userLat},${userLng}`;
+      locationHtml += `<div class="history-answer">অক্ষাংশ: ${userLat.toFixed(6)}°, দ্রাঘিমা: ${userLng.toFixed(6)}°<br>
+      <a href="${mapsUrl}" target="_blank" style="color:#c34266; font-weight:bold;">🗺️ গুগল ম্যাপে লোকেশন দেখুন</a></div>`;
+    } else {
+      locationHtml += `<div class="history-answer">❤️ এখনো লোকেশন অনুমতি দেওয়া হয়নি। উপরের বাটনে ক্লিক করে জিপিএস অনুমতি দিন।</div>`;
+    }
+    locationHtml += `</div>`;
+    
+    // বোনাস : নোট (ভালোবাসার বার্তা)
+    const noteHtml = `<div class="history-item" style="border-left-color:#ff4d6d;">
+      <div class="history-question">✨ বিশেষ নোট ✨</div>
+      <div class="history-answer">“আমি তোকে প্রচুর পরিমাণে ভালোবাসি, আমাকে কখনো ছেড়ে যাস না। প্লিজ I love you” 💖</div>
+    </div>`;
+    
+    historyListContainer.innerHTML = html + locationHtml + noteHtml;
+  }
+
+  // simple escape
+  function escapeHtml(str) {
+    if (!str) return "";
+    return str.replace(/[&<>]/g, function(m) {
+      if (m === '&') return '&amp;';
+      if (m === '<') return '&lt;';
+      if (m === '>') return '&gt;';
+      return m;
+    }).replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, function(c) {
+      return c;
+    });
+  }
+
+  // হিস্টরি টগল
+  function showHistory() {
+    renderHistory();
+    historyPanel.classList.add("show");
+    // optional: সেকশনে স্ক্রল
+    historyPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+  function closeHistory() {
+    historyPanel.classList.remove("show");
+  }
+
+  // ক্লিয়ার উত্তর বাটন (শুধু অ্যান্সার মুছে দেবে কিন্তু লোকেশন থাকবে)
+  function clearAllAnswers() {
+    if (confirm("⚠️ সমস্ত প্রশ্নের উত্তর কি মুছে ফেলবে? (লোকেশন ডেটা থাকবে) ⚠️")) {
+      answers = {};
+      saveAnswersToStorage();
+      // বর্তমান প্রশ্নটি রিফ্রেশ
+      renderCurrentQuestion();
+      alert("সব উত্তর মুছে গেছে। আবার লিখতে পারো 💖");
+      if (historyPanel.classList.contains("show")) {
+        renderHistory();  // history আপডেট দেখাবে খালি
+      }
+    }
+  }
+
+  // Event handlers & blur auto save
+  function attachEvents() {
+    prevBtn.addEventListener("click", goPrev);
+    nextBtn.addEventListener("click", goNext);
+    showHistoryBtn.addEventListener("click", showHistory);
+    closeHistoryBtn.addEventListener("click", closeHistory);
+    askLocationBtn.addEventListener("click", requestLocation);
+    clearHistoryNoteBtn.addEventListener("click", clearAllAnswers);
+    answerInput.addEventListener("blur", () => {
+      saveCurrentAnswer();
+    });
+    // optional: on input change we can auto save after typing pause but blur enough
+  }
+
+  // মোবাইলে কিবোর্ড ব্লার ঠিক রাখতে
+  function init() {
+    loadAnswersFromStorage();
+    attachEvents();
+    renderCurrentQuestion();
+    // যদি লোকেশন আগে স্টোরে থাকে তাহলে UI দেখাবে
+    if (userLat && userLng) updateLocationUI();
+    else {
+      // যদি স্টোরেজ থেকে লোকেশন না থাকে তাহলে ডিফল্ট মেসেজ
+      coordsTextSpan.innerHTML = "🌍 লোকেশন নেই - অনুমতি দিলে লিংক পাবে";
+    }
+    // পেজ লোড হলে হিস্টরি বন্ধ থাকবে
+    historyPanel.classList.remove("show");
+  }
+
+  init();
+</script>
+</body>
+</html>
